@@ -5,9 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.Duration;
 
-/**
- * Created by nando on 03/03/17.
- */
 @Entity
 public class Filme {
 
@@ -17,8 +14,6 @@ public class Filme {
     private String nome;
     private Duration duracao;
     private String genero;
-    
-    
     
     /**
      * @deprecated hibernate only
