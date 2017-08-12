@@ -5,11 +5,14 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sessao {
@@ -28,6 +31,9 @@ public class Sessao {
 	
 	private BigDecimal preco;
 	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="sessao")
+	private Set<Ingresso> ingressos;
+	
 	/**
 	* @deprecated hibernate only
 	**/
@@ -39,6 +45,10 @@ public class Sessao {
 		this.filme = filme;
 		this.sala = sala;
 		this.preco = sala.getPreco().add(filme.getPreco());
+	}
+	
+	public boolean isDisponivel(Lugar lugar) {
+		return ingressos.stream().map(Ingresso::getLugar).noneMatch(l -> l.equals(lugar));
 	}
 	
 	public Map<String, List<Lugar>> getMapaDeLugares() {
@@ -87,5 +97,10 @@ public class Sessao {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+
+	public void setIngressos(Set<Ingresso> ingressos) {
+		this.ingressos = ingressos;
+		
 	}
 }

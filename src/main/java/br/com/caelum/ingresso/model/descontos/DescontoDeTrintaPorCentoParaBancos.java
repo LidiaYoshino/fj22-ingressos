@@ -14,4 +14,7 @@ public class DescontoDeTrintaPorCentoParaBancos implements Desconto {
 		return precoOriginal.multiply(percentualDesconto);
 	}
 	
+	public String getDescricao() {
+		return "Desconto Banco";
+	}
 }
